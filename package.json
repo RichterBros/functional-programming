@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "description-here",
   "main": "main.js",
-  "type": "module",
   "scripts": {
     "build": "webpack --mode development",
     "start": "npm run build & webpack-dev-server --open --mode development",

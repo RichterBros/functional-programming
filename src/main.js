@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/styles.css';
+import './styles.css';
 
 
 // This function stores our state.
@@ -14,8 +14,6 @@ const storeState = () => {
     return newState;
   }
 }
-
-// const stateControl = storeState();
 
 // This is a function factory. We can easily create more specific functions that alter a plant's soil, water, and light to varying degrees.
 
@@ -32,9 +30,10 @@ const initialValues = {strength: 0, HP: 0, magic: 0};
 // const level1 = {strength: 5, HP: 5, magic: 5};
 
 const barbarian = storeState(initialValues);
-// const barbarianLvlUp = storeState(level1);
-// const wizard = storeState(initialValues);
-// const bard = storeState(initialValues);
+/* const currentState = barbarian();
+ */// const barbarianLvlUp = storeState(level1);
+const wizard = storeState(initialValues);
+const bard = storeState(initialValues);
 
 const changeStrength = changeState("strength");
 const liftWeight = changeStrength(5);
@@ -61,13 +60,10 @@ const eatFood = changeHp(5);
 //level up reset with new base stats
 //HP decrementer if poisoined
 
-//console.log(barbarianState)
-// We create four functions using our function factory. We could easily create many more.
 
 $(document).ready(function () {
 
-  // This function has side effects because we are using jQuery. Manipulating the DOM will always be a side effect. Note that we only use one of our functions to alter soil. You can easily add more.
-
+  ////BARBARIAN////
   $('#upmagicBarabarian').click(function () {
     const newState = barbarian(scroll);
     $('#barbarian').text(`Magic: ${newState.magic}`);
@@ -88,9 +84,69 @@ $(document).ready(function () {
     $('#barbarian').text(`Wisdom: ${newState.wisdom}`);
   });
 
-  const currentState = barbarian();
-  console.log(currentState);
+  $('#show-state-barbarian').click(function() {
+    // We just need to call stateControl() without arguments to see our current state.
+    //const currentState = stateControl();
+    const currentState = barbarian();
+    $('#barbarian').text(`barb stats: ${Object.values(currentState)}`);
+  });
+  
 
+  ////WIZARD////
+  $('#upmagicWizard').click(function () {
+    const newState = wizard(scroll);
+    $('#wizard').text(`Magic: ${newState.magic}`);
+  });
+
+  $('#uphpWizard').click(function () {
+    const newState = wizard(eatFood);
+    $('#wizard').text(`HP: ${newState.HP}`);
+  });
+
+  $('#upstrengthWizard').click(function () {
+    const newState = wizard(liftWeight);
+    $('#wizard').text(`Strength: ${newState.strength}`);
+  });
+
+  $('#upwisdomWizard').click(function () {
+    const newState = wizard(readingBook);
+    $('#wizard').text(`Wisdom: ${newState.wisdom}`);
+  });
+
+  $('#show-state-wizard').click(function() {
+    // We just need to call stateControl() without arguments to see our current state.
+    //const currentState = stateControl();
+    const currentWizardState = wizard();
+    $('#wizard').text(`wiz stats: ${Object.values(currentWizardState)}`);
+  });
+
+    ////BARD////
+    $('#upmagicBard').click(function () {
+      const newState = bard(scroll);
+      $('#bard').text(`Magic: ${newState.magic}`);
+    });
+  
+    $('#uphpBard').click(function () {
+      const newState = bard(eatFood);
+      $('#bard').text(`HP: ${newState.HP}`);
+    });
+  
+    $('#upstrengthBard').click(function () {
+      const newState = bard(liftWeight);
+      $('#bard').text(`Strength: ${newState.strength}`);
+    });
+  
+    $('#upwisdomBard').click(function () {
+      const newState = bard(readingBook);
+      $('#bard').text(`Wisdom: ${newState.wisdom}`);
+    });
+  
+    $('#show-state-bard').click(function() {
+      // We just need to call stateControl() without arguments to see our current state.
+      //const currentState = stateControl();
+      const currentBardState = bard();
+      $('#bard').text(`bard stats: ${Object.values(currentBardState)}`);
+    });
   // This function doesn't actually do anything useful in this application - it just demonstrates how we can "look" at the current state (which the DOM is holding anyway). However, students often do need the ability to see the current state without changing it so it's included here for reference.
 
   // $('#show-state').click(function () {
@@ -98,12 +154,5 @@ $(document).ready(function () {
   //   $('#barbarian').append(`Soil: ${currentState.soil}`);
   // });
 });
-
-
-// $ node main.js
-// (node:9128) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
-// C:\Users\Erich Richter\Desktop\react\src\main.js:1
-// import $ from 'jquery';
-// ^^^^^^
 
 
